@@ -16,7 +16,12 @@ export default class Pawn extends Piece {
                 return [Square.at(location.row + 1, location.col), Square.at(location.row + 2, location.col)]
             }
         } else {
-            return Square.at(location.row - 1, location.col)
+            if (this.pieceHasMoved) {
+                return [Square.at(location.row - 1, location.col)]
+            } else {
+                return [Square.at(location.row - 1, location.col), Square.at(location.row - 2, location.col)]
+            }
+            
         }
     }
 }
