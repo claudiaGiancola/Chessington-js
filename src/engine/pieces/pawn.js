@@ -1,42 +1,107 @@
 import Player from '../player';
 import Square from '../square';
 import Piece from './piece';
+import King from './king';
 
 export default class Pawn extends Piece {
-    constructor(player) {
-        super(player);
+  constructor(player) {
+    super(player);
+    this.availableMoves = [];
+    this.location;
+  }
+
+  addMove(x, y) {
+    this.availableMoves.push(
+      Square.at(this.location.row + x, this.location.col + y)
+    );
+  }
+
+  isEmpty(board, x, y) {
+    return !board.getPiece(
+      Square.at(this.location.row + x, this.location.col + y)
+    );
+  }
+
+  isOpponent(board, x, y) {
+    return (
+      this.player !==
+      board.getPiece(Square.at(this.location.row + x, this.location.col + y))
+        .player
+    );
+  }
+
+  isKing(board, x, y) {
+    return (
+      board.getPiece(
+        Square.at(this.location.row + x, this.location.col + y)
+      ) instanceof King
+    );
+  }
+
+  getAvailableMoves(board) {
+    this.location = board.findPiece(this);
+
+    if (this.player === Player.WHITE) {
+      // square two in front
+      if (
+        !this.pieceHasMoved &&
+        this.isEmpty(board, 1, 0) &&
+        this.isEmpty(board, 2, 0)
+      ) {
+        this.addMove(2, 0);
+      }
+
+      // square in front
+      if (this.isEmpty(board, 1, 0)) {
+        this.addMove(1, 0);
+      }
+
+      // left diagonal
+      if (
+        !this.isEmpty(board, 1, -1) &&
+        this.isOpponent(board, 1, -1) &&
+        !this.isKing(board, 1, -1)
+      ) {
+        this.addMove(1, -1);
+      }
+      // right diagonal
+      if (
+        !this.isEmpty(board, 1, 1) &&
+        this.isOpponent(board, 1, 1) &&
+        !this.isKing(board, 1, 1)
+      ) {
+        this.addMove(1, 1);
+      }
+    } else {
+      if (
+        !this.pieceHasMoved &&
+        this.isEmpty(board, -1, 0) &&
+        this.isEmpty(board, -2, 0)
+      ) {
+        this.addMove(-2, 0);
+      }
+
+      if (this.isEmpty(board, -1, 0)) {
+        this.addMove(-1, 0);
+      }
+
+      if (
+        !this.isEmpty(board, -1, -1) &&
+        this.isOpponent(board, -1, -1) &&
+        !this.isKing(board, -1, -1)
+      ) {
+        this.addMove(-1, -1);
+      }
+
+      if (
+        !this.isEmpty(board, -1, 1) &&
+        this.isOpponent(board, -1, 1) &&
+        !this.isKing(board, -1, 1)
+      ) {
+        this.addMove(-1, 1);
+      }
     }
 
-    getAvailableMoves(board) {
-        let location = board.findPiece(this)
-
-        const spaceOneInFrontWhite = Square.at(location.row + 1, location.col);
-        const spaceTwoInFrontWhite = Square.at(location.row + 2, location.col);
-        const spaceOneInFrontBlack = Square.at(location.row - 1, location.col);
-        const spaceTwoInFrontBlack = Square.at(location.row - 2, location.col);
-
-        let availableMoves = [];
-
-        if (this.player === Player.WHITE) {
-            if (this.pieceHasMoved && !board.getPiece(spaceOneInFrontWhite)) {
-                availableMoves.push(Square.at(location.row + 1, location.col));
-            } else if (!this.pieceHasMoved && !board.getPiece(spaceOneInFrontWhite) && !board.getPiece(spaceTwoInFrontWhite)) {
-                availableMoves.push(
-                    Square.at(location.row + 1, location.col),
-                    Square.at(location.row + 2, location.col)
-                );
-            }
-        } else {
-            if (this.pieceHasMoved && !board.getPiece(spaceOneInFrontBlack)) {
-                availableMoves.push(Square.at(location.row - 1, location.col));
-            } else if (!this.pieceHasMoved && !board.getPiece(spaceOneInFrontBlack) && !board.getPiece(spaceTwoInFrontBlack)) {
-                availableMoves.push(
-                    Square.at(location.row - 1, location.col),
-                    Square.at(location.row - 2, location.col)
-                );
-            } 
-        }
-
-        return availableMoves;
-    }
+    return this.availableMoves;
+  }
 }
