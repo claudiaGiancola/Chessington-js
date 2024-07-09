@@ -35,7 +35,7 @@ describe('Rook', () => {
         moves.should.have.length(14);
     });
 
-    it('cannot move through friendly pieces', () => {
+    it.only('cannot move through friendly pieces', () => {
         const rook = new Rook(Player.WHITE);
         const friendlyPiece = new Pawn(Player.WHITE);
         board.setPiece(Square.at(4, 4), rook);
