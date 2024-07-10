@@ -80,7 +80,7 @@ describe('Rook', () => {
         moves.should.not.deep.include(Square.at(4, 6));
     });
 
-    it.only('cannot take friendly pieces', () => {
+    it('cannot take friendly pieces', () => {
         const rook = new Rook(Player.WHITE);
         const friendlyPiece = new Pawn(Player.WHITE);
         board.setPiece(Square.at(4, 4), rook);
