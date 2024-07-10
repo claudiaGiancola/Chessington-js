@@ -27,36 +27,36 @@ export default class Rook extends Piece {
 
   getAvailableMoves(board) {
     this.location = board.findPiece(this);
-    let currentXcoord = this.location.row;
-    let currentYcoord = this.location.col;
+    let x = this.location.row;
+    let y = this.location.col;
 
     // vertical
     // look up
-    for (let i = currentYcoord + 1; i <= 7; i++) {
-      if (this.isEmpty(board, currentXcoord, i)) {
-        this.addMove(currentXcoord, i);
+    for (let i = y + 1; i <= 7; i++) {
+      if (this.isEmpty(board, x, i)) {
+        this.addMove(x, i);
       } else if (
-        this.isOpponent(board, currentXcoord, i) &&
-        !this.isKing(board, currentXcoord, i)
+        this.isOpponent(board, x, i) &&
+        !this.isKing(board, x, i)
       ) {
-        this.addMove(currentXcoord, i);
+        this.addMove(x, i);
         break;
       } else {
         break;
       }
     }
     // look down
-    for (let i = currentYcoord - 1; i >= 0; i--) {
-      if (this.isEmpty(board, currentXcoord, i)) {
-        this.addMove(currentXcoord, i);
+    for (let i = y - 1; i >= 0; i--) {
+      if (this.isEmpty(board, x, i)) {
+        this.addMove(x, i);
       } else if (
         this.isOpponent(
           board,
-          currentXcoord,
-          i && !this.isKing(board, currentXcoord, i)
+          x,
+          i && !this.isKing(board, x, i)
         )
       ) {
-        this.addMove(currentXcoord, i);
+        this.addMove(x, i);
         break;
       } else {
         break;
@@ -65,28 +65,28 @@ export default class Rook extends Piece {
 
     // horizontal
     // look left
-    for (let i = currentXcoord - 1; i >= 0; i--) {
-      if (this.isEmpty(board, i, currentYcoord)) {
-        this.addMove(i, currentYcoord);
+    for (let i = x - 1; i >= 0; i--) {
+      if (this.isEmpty(board, i, y)) {
+        this.addMove(i, y);
       } else if (
-        this.isOpponent(board, i, currentYcoord) &&
-        !this.isKing(board, i, currentYcoord)
+        this.isOpponent(board, i, y) &&
+        !this.isKing(board, i, y)
       ) {
-        this.addMove(i, currentYcoord);
+        this.addMove(i, y);
         break;
       } else {
         break;
       }
     }
     // look right
-    for (let i = currentXcoord + 1; i <= 7; i++) {
-      if (this.isEmpty(board, i, currentYcoord)) {
-        this.addMove(i, currentYcoord);
+    for (let i = x + 1; i <= 7; i++) {
+      if (this.isEmpty(board, i, y)) {
+        this.addMove(i, y);
       } else if (
-        this.isOpponent(board, i, currentYcoord) &&
-        !this.isKing(board, i, currentYcoord)
+        this.isOpponent(board, i, y) &&
+        !this.isKing(board, i, y)
       ) {
-        this.addMove(i, currentYcoord);
+        this.addMove(i, y);
         break;
       } else {
         break;
