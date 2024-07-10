@@ -36,7 +36,8 @@ export default class Bishop extends Piece {
     ) {
       if (this.isEmpty(board, x, y)) {
         this.addMove(x, y);
-      } else if (this.isOpponent(board, x, y) && !this.isKing(board, x, y)) {
+      } else if (this.isOpponent(board, x, y)
+        && !this.isKing(board, x, y)) {
         this.addMove(x, y);
         break;
       } else {
@@ -51,7 +52,8 @@ export default class Bishop extends Piece {
     ) {
       if (this.isEmpty(board, x, y)) {
         this.addMove(x, y);
-      } else if (this.isOpponent(board, x, y) && !this.isKing(board, x, y)) {
+      } else if (this.isOpponent(board, x, y)
+        && !this.isKing(board, x, y)) {
         this.addMove(x, y);
         break;
       } else {
@@ -67,7 +69,8 @@ export default class Bishop extends Piece {
     ) {
       if (this.isEmpty(board, x, y)) {
         this.addMove(x, y);
-      } else if (this.isOpponent(board, x, y) && !this.isKing(board, x, y)) {
+      } else if (this.isOpponent(board, x, y)
+        && !this.isKing(board, x, y)) {
         this.addMove(x, y);
         break;
       } else {
@@ -83,7 +86,8 @@ export default class Bishop extends Piece {
     ) {
       if (this.isEmpty(board, x, y)) {
         this.addMove(x, y);
-      } else if (this.isOpponent(board, x, y) && !this.isKing(board, x, y)) {
+      } else if (this.isOpponent(board, x, y)
+        && !this.isKing(board, x, y)) {
         this.addMove(x, y);
         break;
       } else {
